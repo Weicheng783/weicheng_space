@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weicheng Space</title>
+        <meta name="author" content="Weicheng Ao">
+        <meta name="revised" content="Weicheng Ao, Canary Edition 5/27|2021">
+    </head>
+
+    <body style="background-color: antiquewhite;">
+        <div id="header">
+            <img src="./logo.png" id="logo" alt="Weicheng_Space_Welcome_Message" style=" margin-right:25%; display:inline-block; height:100px; width:auto;">
+            <button type="button" id="header_button" onclick="file_new()">Today</button>
+            <button type="button" id="header_button" onclick="file_new()">Yesterday</button>
+            <button type="button" id="header_button" onclick="file_new()">Current Tasks</button>
+            <button type="button" id="header_button" onclick="file_new()">My Footprint</button>
+        </div>
+
+        <div id="main">
+            <p class="narrator" style="font-size: xx-large; text-align: center;">My deer, does everything goes well, these days?</p>
+            <p class="narrator" style="font-size: xx-large; text-align: center;">If yes, I'm Glad to See you at this place.</p>
+            <p class="narrator" style="font-size: xx-large; text-align: center;">If Not, Come along with me here, Just tell me your worries.</p>
+            <p class="narrator" style="font-size: xx-large; text-align: center;" id="ymd"></p>
+
+        </div>
+    </body>
+
+</html>
+
+<script>
+    function fun(){
+        var date = new Date()
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        var d = date.getDate(); 
+        var hh = date.getHours();
+        var mm = date.getMinutes();
+        var ss = date.getSeconds();
+        if(hh <= 6 & hh >= 0){
+            var notice = "夜深了，但新的一天开始啦~ 凌晨时分，快些睡觉吧!"
+        }else if(hh > 6 & hh < 11){
+            var notice = "上午开始啦！抓住大好时光，去做事情吧！"
+        }else if(hh >= 11  & hh <= 12){
+            var notice = "午间时分咯~ 注意快些结束事情，准备干饭吧！"
+        }else if(hh > 12 & hh <= 18){
+            var notice = "下午开始啦！抓住大好时光，去做事情吧！"
+        }else if(hh >= 19 & hh <= 22){
+            var notice = "晚上了~ 这段时间应该好好安排一下咯~"
+        }else if(hh > 22 & hh <= 23){
+            var notice = "夜深了，差不多收拾一下，准备休息吧。"
+        }else{
+            var notice = "继续加油哦~"
+        }
+
+        document.getElementById("ymd").innerHTML = +y+"-"+m+"-"+d+" "+hh+":"+mm+":"+ss+" "+notice+"我的伙伴。";
+        setTimeout("fun()",1000)
+    }
+
+    window.onload = function(){
+        setTimeout("fun()",0)
+    }
+</script>
+
+
+<style>
+    .narrator{
+        animation-name: narrator_enter; 
+        animation-duration:5s;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    @keyframes narrator_enter {
+        0%   {margin-top:-50px;}
+        100% {margin-top:20px;}
+    }
+
+    #logo{
+        text-align:left;
+    }
+
+    #header {
+        
+        /* display: inline-block; */
+        border-radius: 5px;
+        border-width: 5px;
+        border: solid;
+        border-color: skyblue;
+        background-color: antiquewhite;
+        text-align: center;
+        
+    }
+
+    #header_button {
+        margin: 20px, 20px, 20px, 20px;
+        border-radius: 10px;
+        /* text-align: right; */
+        font-size: large;
+    }
+
+    #header_button:hover{
+        background-color: rgb(30, 101, 148);
+    }
+
+    #header_button:active{
+        background-color: sandybrown;
+    }
+</style>
