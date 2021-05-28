@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+        <meta charset="utf-8">
         <title>Weicheng Space</title>
         <meta name="author" content="Weicheng Ao">
         <meta name="revised" content="Weicheng Ao, Canary Edition 5/27|2021">
@@ -20,8 +22,18 @@
             <p class="narrator" style="font-size: xx-large; text-align: center;">If yes, I'm Glad to See you at this place.</p>
             <p class="narrator" style="font-size: xx-large; text-align: center;">If Not, Come along with me here, Just tell me your worries.</p>
             <p class="narrator" style="font-size: xx-large; text-align: center;" id="ymd"></p>
-
         </div>
+
+        <div id="form" style="font-size: xx-large; text-align: center; border-style: dotted;">
+            <form action="submit.php" method="post">
+                Your Emotion: <input type="text" name="emotion" placeholder="Happy/Sad/..." />
+                Your Messages: 
+                <!-- <input type="text" name="lname" /> -->
+                <textarea rows="10" cols="30" name="texts" placeholder="Just Say it to me ~"></textarea>
+                <input type="submit" value="Submit" id="header_button"/>
+            </form>
+        </div>
+
     </body>
 
 </html>
@@ -97,10 +109,15 @@
     }
 
     #header_button:hover{
-        background-color: rgb(30, 101, 148);
+        background-color: rgb(36, 200, 221);
     }
 
     #header_button:active{
         background-color: sandybrown;
     }
+
+    .good{
+        text-align: center;    
+    }
+
 </style>
