@@ -3,17 +3,10 @@
 <body>
 
 <?php
-    // echo "<table border='5' class='good1' align='center' bordercolor='lightpurple'>
-    // <tr class='good1'>
-    // <th class='good1'>Box</th>
-    // <th class='good1'>ID</th>
-    // <th class='good1'>Event</th>
-    // <th class='good1'>Goal Date</th>
-    // </tr>";
 
     header("content-type:text/html;charset=utf-8");
     include ("header.html");
-    
+
     include ("important.php");
     
     include ("index.html");
@@ -91,7 +84,7 @@
 ?>
 
 <footer>
-  <p style="font-family:'Trebuchet MS','Lucida Sans Unicode','Lucida Grande','Lucida Sans',Arial,sans-serif; text-align:center;">Weicheng Ao, Canary Edition 5/27|2021 - 5/28|2021</p>
+  <p style="font-family:'Trebuchet MS','Lucida Sans Unicode','Lucida Grande','Lucida Sans',Arial,sans-serif; text-align:center;">Weicheng Ao, Canary Edition 5/27|2021 - 5/28|2021 © All Rights Reserved.</p>
   <!-- <p>Contact information: <a href="mailto:someone@example.com">someone@example.com</a>.</p> -->
 </footer>
 

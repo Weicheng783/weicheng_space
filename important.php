@@ -25,16 +25,43 @@
         
             $number1 = mysqli_num_rows($result1);
 
+            function diffBetweenTwoDays ($day1, $day2)
+            {
+                $second1 = strtotime($day1);
+                $second2 = strtotime($day2);
+                    
+                if ($second1 < $second2) {
+                    $tmp = $second2;
+                    $second2 = $second1;
+                    $second1 = $tmp;
+                }
+                return ($second1 - $second2) / 86400;
+            }
         
             $curr_num = 0;
             while($row = mysqli_fetch_assoc($result1))
             {
                 $curr_num ++;
                 echo "<tr>";
-                echo "<td> <input type='checkbox' name='event_boxes' value='".$row['id']."' id='".$curr_num."'>".$row['id']."</td>";
-                echo "<td>".$row['id']."</td>";
-                echo "<td>".$row['name']."</td>";
-                echo "<td>".$row['date']."</td>";
+                echo "<td><font size='5'> <input type='checkbox' name='event_boxes' value='".$row['id']."' id='".$curr_num."'>".$row['id']."</td>";
+                echo "<td><font size='5'>".$row['id']."</td>";
+                echo "<td><font size='5'>".$row['name']."</td>";
+                $day2 = $row['date'];
+                echo "<td><font size='5'>".$day2."</td>";
+                $day1 = date("Y-m-d");
+                $diff = diffBetweenTwoDays($day1, $day2);
+                if ($diff <= 3){
+                    echo "<td bgcolor='#E64558'><font size='5' color='white'>".$diff." Days</td>";
+                }else if($diff > 3 & $diff <= 6){
+                    echo "<td bgcolor='#F09E48'><font size='5' color='white'>".$diff." Days</td>";
+                }else if($diff > 6 & $diff <= 10){
+                    echo "<td bgcolor='#D9CD4C'><font size='5' color='white'>".$diff." Days</td>";
+                }else if($diff > 10 & $diff <= 20){
+                    echo "<td bgcolor='#48F04C'><font size='5' color='white'>".$diff." Days</td>";
+                }else{
+                    echo "<td bgcolor='#4ADEEB'><font size='5' color='white'>".$diff." Days</td>";
+                }
+                
                 echo "</tr>";
             }
             echo "</table>";

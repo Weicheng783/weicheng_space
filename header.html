@@ -13,9 +13,50 @@
             <img src="./logo.png" id="logo" alt="Weicheng_Space_Welcome_Message" style=" margin-right:25%; display:inline-block; height:100px; width:auto;">
             <button type="button" id="header_button" onclick="file_new()">Today</button>
             <button type="button" id="header_button" onclick="file_new()">Yesterday</button>
-            <button type="button" id="header_button" onclick="file_new()">Current Tasks</button>
+            <form action="submit2.php" method="post" id="header_button">
+               <input type="hidden" name="res1" id="res1_id"/>
+               <input type="hidden" name="res2" id="res2_id"/>
+               <input type="hidden" name="flag" id="flag_id"/>
+               <button type="submit" id="header_button" onclick="new_task()">New Task</button>
+            </form>
             <button type="button" id="header_button" onclick="file_new()">My Footprint</button>
         </div>
+
+        <script>
+            function new_task(){
+                var flag = 1;
+                var Response1 = prompt("##请输入验证密钥令牌:##","");
+                // console.log(Response1)
+                if(Response1 == "123456"){
+                    console.log("认证成功。");
+                    var Response2 = prompt("##认证成功，接下来输入 事件 :##","");
+                    if(Response2 != null & Response2 != ""){
+                        var Response3 = prompt("##认证成功，接下来输入 目标截止时间 举例:2021-05-30 :##","");
+                        if(Response3 != null & Response3 != ""){
+                            var flag = 0;
+                            alert("成功，正在更新表单。。。");
+                            var input_box = document.getElementById('res1_id');
+                            input_box.value = Response2;
+                            var input_box = document.getElementById('res2_id');
+                            input_box.value = Response3;
+                            var input_box = document.getElementById('flag_id');
+                            input_box.value = flag;
+                        }else{
+                            alert("User Cancelled.");
+                            var flag = 1;
+                        }
+                    }else{
+                        alert("User Cancelled.");
+                        var flag = 1;
+                    }
+                    
+
+                }else{
+                    alert("认证失败，密钥错误或未给出密钥。");
+                    var flag = 1;
+                }
+            }
+        </script>
     </body>
 
 </html>
