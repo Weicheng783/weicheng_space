@@ -12,7 +12,11 @@
         <div id="header">
             <img src="./logo.png" id="logo" alt="Weicheng_Space_Welcome_Message" style=" margin-right:25%; display:inline-block; height:100px; width:auto;">
             <button type="button" id="header_button" onclick="file_new()">Today</button>
-            <button type="button" id="header_button" onclick="file_new()">Yesterday</button>
+            <form action="delete2.php" method="post" id="header_button">
+                <!-- <?php $table_var = 1; ?> -->
+                <button type="button" id="header_button" onclick="enumerate2();">Delete Selected Task</button>
+                <input type="submit" name="checkedobj" id="fetch_obj2" value="CONFIRM" />
+            </form>
             <form action="submit2.php" method="post" id="header_button">
                <input type="hidden" name="res1" id="res1_id"/>
                <input type="hidden" name="res2" id="res2_id"/>

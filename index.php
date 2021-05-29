@@ -5,11 +5,14 @@
 <?php
 
     header("content-type:text/html;charset=utf-8");
+    $table_var = 0;
     include ("header.html");
 
     include ("important.php");
     
     include ("index.html");
+    
+
     $servername = "localhost";
     $db_username = "root";
     $db_password = "";
@@ -58,7 +61,12 @@
 
             for(var i=0; i<$number; i++){
                 // console.dir(i);
-                var curr_obj = document.getElementsByName('check_boxes');
+                    var curr_obj = document.getElementsByName('check_boxes');
+
+                    // var curr_obj = document.getElementsByName('event_boxes');
+
+                
+
                 array[i] = curr_obj[i].value;
                 console.dir(array[i]);
                 if(curr_obj[i].checked){
@@ -76,6 +84,40 @@
 
             }
     }";
+
+    echo "function enumerate2(){
+        current_checked_obj = 0;
+        var array=new Array($number1);
+        var checked_obj = new Array();
+
+        var text = '$number1';
+        console.dir(text);
+
+        for(var i=0; i<$number1; i++){
+            // console.dir(i);
+                // var curr_obj = document.getElementsByName('check_boxes');
+
+                var curr_obj = document.getElementsByName('event_boxes');
+
+            
+
+            array[i] = curr_obj[i].value;
+            console.dir(array[i]);
+            if(curr_obj[i].checked){
+                console.dir(array[i]+'checked!');
+                checked_obj[current_checked_obj]=array[i];
+                console.dir(current_checked_obj);
+                current_checked_obj ++;
+                
+            }else{
+                // console.dir(array[i]+'unchecked!');
+            }
+            
+            var input_box = document.getElementById('fetch_obj2');
+            input_box.value = checked_obj;
+
+        }
+}";
     // echo "enumerate();";
     echo "</script>";
 

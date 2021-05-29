@@ -12,7 +12,7 @@
         </tr> -->
         
         <p class="narrator" style="font-size: x-large; text-align: center; color:crimson;">2021.05-06进入期末考试期</p>
-        <?php 
+        <?php
             include ("table.html");
             $servername1 = "localhost";
             $db_username1 = "root";
