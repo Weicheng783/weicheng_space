@@ -1,21 +1,29 @@
 <?php
     header("content-type:text/html;charset=utf-8");
-    echo " console.dir('del_process startsss!');";
+    $servername = "localhost";
+    $db_username = "root";
+    $db_password = "";
+    $db_name = "diary";
+    $conn = new mysqli($servername,$db_username,$db_password,$db_name);
 
-    $php_test='I come from PHP!';  
+    if($conn -> connect_error){
+        die("Connection Failed! Please Check your database.".$conn->connect_error);
+    }else{
+        // echo "<script>alert('登录成功咯~');</script>";
+    }
 
-    echo "var test='$php_test';";  
 
-    echo "var jstext="."'$php_test';";
+    $del_array = explode(",",$_REQUEST['checkedobj']);
 
-    // $emotion = $_REQUEST['emotion'];
-    // $texts = $_REQUEST['texts'];
-    // $sql="INSERT INTO `daily_diary` (`no`, `emotion`, `texts`) VALUES (NULL, '$emotion', '$texts')";
+    for($x=0; $x<count($del_array); $x++){
+        $sql = "DELETE FROM `daily_diary` WHERE `daily_diary`.`no` = $del_array[$x]";
+        $re=mysqli_query($conn,$sql);
+    }
 
-    // $re=mysqli_query($conn,$sql);
-    // if($re){
-    //     echo "<script>alert('更新成功咯~');location.href='index.php'</script>";
-    // }else{
-    //     echo "<script>alert('失败了。请重试试。');location.href='index.php'</script>";
-    // }
+    if($re){
+        echo "<script>location.href='index.php'</script>";
+    }else{
+        echo "<script>alert('列表中有项目失败了。请重试试。');location.href='index.php'</script>";
+    }
+
 ?>

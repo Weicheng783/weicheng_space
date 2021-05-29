@@ -9,7 +9,7 @@
     if($conn -> connect_error){
         die("Connection Failed! Please Check your database.".$conn->connect_error);
     }else{
-        echo "<script>alert('登录成功咯~');</script>";
+        // echo "<script>alert('登录成功咯~');</script>";
     }
 
     $conn -> query("set names utf8");
@@ -20,7 +20,7 @@
 
     $re=mysqli_query($conn,$sql);
     if($re){
-        echo "<script>alert('更新成功咯~');location.href='index.php'</script>";
+        echo "<script>location.href='index.php'</script>";
     }else{
         echo "<script>alert('失败了。请重试试。');location.href='index.php'</script>";
     }

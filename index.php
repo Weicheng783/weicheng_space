@@ -36,7 +36,7 @@
     }
     
     echo "</table>";
-    echo '<input type="button" style="align:center; " id="header_button" onclick="enumerate()">Delete Them all!</button>';
+    echo '<input type="button" style="align:center; margin-left:25%;" id="header_button" onclick="enumerate()" value="Delete Them all!">';
     // echo '<form action="delete.php" method="post">';
     // echo '<input type="submit" value="Delete" id="header_button" onclick="" />';
     // echo '</form>';
@@ -44,8 +44,6 @@
     echo "<script>";
     echo "var current_checked_obj = 0;";
     echo "function enumerate(){
-        if(confirm('是否确认删除所选行？')){
-            alert('点击了确定');
             current_checked_obj = 0;
             var array=new Array($number);
             var checked_obj = new Array();
@@ -61,48 +59,25 @@
                 if(curr_obj[i].checked){
                     console.dir(array[i]+'checked!');
                     checked_obj[current_checked_obj]=array[i];
-                    
-                    location.href='index.php?str='+checked_obj[current_checked_obj];
-
                     console.dir(current_checked_obj);
-
-                    del_process(current_checked_obj);
                     current_checked_obj ++;
                     
                 }else{
                     // console.dir(array[i]+'unchecked!');
                 }
+                
+                var input_box = document.getElementById('fetch_obj');
+                input_box.value = checked_obj;
 
             }
-        }else{
-            alert('点击了取消');
-        }
     }";
     // echo "enumerate();";
     echo "</script>";
 
+    include ("delete.html");
 
 ?>
 
-<script>
-    function del_process(no){
-        console.dir('del_process start!');
-        alert('<?php
-            $curr= (int)$_GET["str"];
-            $sql="DELETE FROM `daily_diary` WHERE `daily_diary`.`no` = '$curr'";
-            $re=mysqli_query($conn,$sql);
-            if($re){
-                echo "更新成功咯~";
-            }else{
-                echo "失败了。请重试试。";
-            }
-            ?>');
-
-        location.href='index.php';
- 
-
-    }
-</script>
 </body>
 
 </html>
