@@ -3,7 +3,19 @@
 <body>
 
 <?php
+    // echo "<table border='5' class='good1' align='center' bordercolor='lightpurple'>
+    // <tr class='good1'>
+    // <th class='good1'>Box</th>
+    // <th class='good1'>ID</th>
+    // <th class='good1'>Event</th>
+    // <th class='good1'>Goal Date</th>
+    // </tr>";
+
     header("content-type:text/html;charset=utf-8");
+    include ("header.html");
+    
+    include ("important.php");
+    
     include ("index.html");
     $servername = "localhost";
     $db_username = "root";
@@ -34,8 +46,8 @@
         echo "<td>".$row['texts']."</td>";
         echo "</tr>";
     }
-    
     echo "</table>";
+
     echo '<input type="button" style="align:center; margin-left:25%;" id="header_button" onclick="enumerate()" value="Delete Them all!">';
     // echo '<form action="delete.php" method="post">';
     // echo '<input type="submit" value="Delete" id="header_button" onclick="" />';
@@ -47,7 +59,7 @@
             current_checked_obj = 0;
             var array=new Array($number);
             var checked_obj = new Array();
-            
+
             var text = '$number';
             console.dir(text);
 
@@ -77,6 +89,11 @@
     include ("delete.html");
 
 ?>
+
+<footer>
+  <p style="font-family:'Trebuchet MS','Lucida Sans Unicode','Lucida Grande','Lucida Sans',Arial,sans-serif; text-align:center;">Weicheng Ao, Canary Edition 5/27|2021 - 5/28|2021</p>
+  <!-- <p>Contact information: <a href="mailto:someone@example.com">someone@example.com</a>.</p> -->
+</footer>
 
 </body>
 
