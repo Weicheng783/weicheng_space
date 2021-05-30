@@ -18,6 +18,33 @@
     $texts = $_REQUEST['texts'];
     $sql="INSERT INTO `daily_diary` (`no`, `emotion`, `texts`) VALUES (NULL, '$emotion', '$texts')";
 
+
+  //从这里开始 百度语音合成！  
+    require_once 'AipSpeech.php';
+    
+    // 你的 APPID AK SK
+    const APP_ID = '24274364';
+    const API_KEY = 'dFlggY9vGUbTPwvhhUGIsRhN';
+    const SECRET_KEY = 'ETeqtySRqHzCqXxk3pEccTQbt1EXVaMI';
+   // 这里结束
+    $client = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
+
+    $resulted = $client->synthesis('调用成功！', 'zh', 1, array(
+        'vol' => 5,
+        'per' => 6,
+    ));
+     
+    // 识别正确返回语音二进制 错误则返回json 参照下面错误码
+    if(!is_array($resulted)){
+        file_put_contents('audio.mp3', $resulted);
+        // system("wmplayer.exe audio.mp3");
+        echo "<script>";
+        echo "var music = document.getElementById('audio_play');";
+        echo "music.play();";
+        echo "</script>";
+        
+    }
+
     $re=mysqli_query($conn,$sql);
     if($re){
         echo "<script>location.href='index.php'</script>";

@@ -27,7 +27,7 @@
             echo "<script>alert('失败了。请重试试。');location.href='index.php'</script>";
         }
     }else{
-        echo "<script>alert('Flag Set to 1, 重新输入咯');location.href='index.php'</script>";    
+        echo "<script>location.href='index.php'</script>";    
     }
 
 

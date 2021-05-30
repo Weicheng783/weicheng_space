@@ -136,6 +136,11 @@
     <p style="background-color:#48F04C; color:white; ">C4</p>
     <p style="background-color:#C64558; color:white; ">C5</p>
     <p style="background-color:#4ADEEB; color:white; ">C6</p>
+
+    <audio autoplay="autoplay">
+    <source src="audio.mp3" type="audio/mp3" id="audio_play">
+        Your browser does not support the audio element. 您的浏览器不支持 audio 元素。
+    </audio>
 </body>
 
 </html>
