@@ -1,6 +1,12 @@
 <html>
 
 <body>
+<?php
+    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
+    header("Cache-Control: no-cache, must-revalidate");
+    header("Pragma: no-cache");
+?>
 
 <?php
 
@@ -12,7 +18,6 @@
     
     include ("index.html");
     
-
     $servername = "localhost";
     $db_username = "root";
     $db_password = "";
@@ -44,7 +49,7 @@
     }
     echo "</table>";
 
-    echo '<input type="button" style="align:center; margin-left:25%;" id="header_button" onclick="enumerate()" value="Delete Them all!">';
+    echo '<input type="button" style="align:center; " id="header_button" onclick="enumerate()" value="Delete Them all!">';
     // echo '<form action="delete.php" method="post">';
     // echo '<input type="submit" value="Delete" id="header_button" onclick="" />';
     // echo '</form>';
@@ -52,6 +57,7 @@
     echo "<script>";
     echo "var current_checked_obj = 0;";
     echo "function enumerate(){
+
             current_checked_obj = 0;
             var array=new Array($number);
             var checked_obj = new Array();
@@ -136,11 +142,32 @@
     <p style="background-color:#48F04C; color:white; ">C4</p>
     <p style="background-color:#C64558; color:white; ">C5</p>
     <p style="background-color:#4ADEEB; color:white; ">C6</p>
+    <!-- autoplay="autoplay" -->
 
-    <audio autoplay="autoplay">
-    <source src="audio.mp3" type="audio/mp3" id="audio_play">
-        Your browser does not support the audio element. 您的浏览器不支持 audio 元素。
-    </audio>
+    <?php
+        $file = fopen("audio_var.txt","r");
+        $audio_var = fgets($file);
+        if ($audio_var == "1"){
+            include("safariplay.html");
+
+            echo "<html>";
+            echo "<audio autoplay='autoplay'>";
+            echo "<source src='audio.mp3' preload='auto' type='audio/mp3' id='audio_play'>";
+            echo "  Your browser does not support the audio element. 您的浏览器不支持 audio 元素。";
+            echo "</audio>";
+            echo "</html>";
+        }else{
+            // echo "<script>alert('$audio_var');</script>";
+        }
+        fclose($file);
+        $file = fopen("audio_var.txt", "w");
+        $txt = "0";
+        fwrite($file, $txt);
+        fclose($file);
+
+
+    ?>
+
 </body>
 
 </html>

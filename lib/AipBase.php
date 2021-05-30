@@ -15,8 +15,10 @@
 * the License.
 */
 
-require_once 'AipHttpClient.php';
-require_once 'AipBCEUtil.php';
+// require 'AipHttpClient.php';
+// require 'AipBCEUtil.php';
+include 'AipHttpClient.php';
+include 'AipBCEUtil.php';
 
 /**
  * Aip Base 基类
