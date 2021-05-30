@@ -125,11 +125,17 @@
 
 ?>
 
-<footer>
-  <p style="font-family:'Trebuchet MS','Lucida Sans Unicode','Lucida Grande','Lucida Sans',Arial,sans-serif; text-align:center;">Weicheng Ao, Canary Edition 5/27|2021 - 5/28|2021 © All Rights Reserved.</p>
-  <!-- <p>Contact information: <a href="mailto:someone@example.com">someone@example.com</a>.</p> -->
-</footer>
+    <footer>
+    <p style="font-family:'Trebuchet MS','Lucida Sans Unicode','Lucida Grande','Lucida Sans',Arial,sans-serif; text-align:center;">Weicheng Ao, Canary Edition 5/27|2021 - 5/28|2021 © All Rights Reserved.</p>
+    <!-- <p>Contact information: <a href="mailto:someone@example.com">someone@example.com</a>.</p> -->
+    </footer>
 
+    <p style="background-color:#E64558; color:white; ">C1</p> 
+    <p style="background-color:#F09E48; color:white; ">C2</p>
+    <p style="background-color:#D9CD4C; color:white; ">C3</p>
+    <p style="background-color:#48F04C; color:white; ">C4</p>
+    <p style="background-color:#C64558; color:white; ">C5</p>
+    <p style="background-color:#4ADEEB; color:white; ">C6</p>
 </body>
 
 </html>
