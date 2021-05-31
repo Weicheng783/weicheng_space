@@ -17,6 +17,13 @@
             </form>
         </div>
 
+        <html>
+            <audio autoplay='autoplay' id='noticer_audio'>
+            <source src='notice.wav' preload='auto' type='audio/mp3' id='noticer' />
+            Your browser does not support the audio element. 您的浏览器不支持 audio 元素。
+            </audio>
+        </html>
+
     </body>
 
 </html>
@@ -46,6 +53,11 @@
             var notice = "继续加油哦~"
         }
 
+        if(ss == 0){
+            document.getElementById("noticer").src = "notice.wav";
+            document.getElementById("noticer_audio").play();
+            // document.write("<html><audio autoplay='autoplay'><source src='notice.wav' preload='auto' type='audio/mp3' id='noticer' />Your browser does not support the audio element. 您的浏览器不支持 audio 元素。</audio></html>");
+        }
         document.getElementById("ymd").innerHTML = +y+"-"+m+"-"+d+" "+hh+":"+mm+":"+ss+" "+notice+"我的伙伴。";
         setTimeout("fun()",1000)
     }

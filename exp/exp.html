@@ -1,0 +1,128 @@
+<div class="aui-list-item-input"><a class="file">拍照上传 <input id="wsd" class="cimg" accept="image/*" type="file" /> </a></div>
+
+<style>
+.pic{
+    display: none;
+    width: 50%;
+}
+.file {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
+</style>
+
+
+<script type="text/javascript">
+ 
+    $(document).ready(function () {
+        $('.cimg').change(function () {
+
+            var file = $(this)[0].files[0];
+            var that = $(this);
+            imgResize(file, callback, that);
+
+        });
+    });
+
+    function imgResize(file, callback, that) {
+        var fileReader = new FileReader();
+        fileReader.onload = function () {
+            var IMG = new Image();
+            IMG.src = this.result;
+            IMG.onload = function () {
+                var w = this.naturalWidth, h = this.naturalHeight, resizeW = 0, resizeH = 0;
+                // maxSize 是压缩的设置，设置图片的最大宽度和最大高度，等比缩放，level是图片的质量，数值越小质量越低
+                var maxSize = {
+                    width: 500,
+                    height: 500,
+                    level: 0.8
+                };
+                if (w > maxSize.width || h > maxSize.height) {
+                    var multiple = Math.max(w / maxSize.width, h / maxSize.height);
+                    resizeW = w / multiple;
+                    resizeH = h / multiple;
+                } else {
+                    // 如果图片尺寸小于最大限制，则不压缩直接上传
+
+                    return callback(IMG.src, that)
+                }
+                var canvas = document.createElement('canvas'),
+                        ctx = canvas.getContext('2d');
+                if (window.navigator.userAgent.indexOf('iPhone') > 0) {
+                    canvas.width = resizeH;
+                    canvas.height = resizeW;
+                    ctx.roate(90 * Math.PI / 180);
+                    ctx.drawImage(IMG, 0, -resizeH, resizeW, resizeH);
+                } else {
+                    canvas.width = resizeW;
+                    canvas.height = resizeH;
+                    ctx.drawImage(IMG, 0, 0, resizeW, resizeH);
+                }
+                var base64 = canvas.toDataURL('image/jpeg', maxSize.level);
+                return callback(base64, that)
+                // bast64 转换 文件
+               // convertBlob(window.atob(base64.split(',')[1]), callback);
+            }
+        };
+        fileReader.readAsDataURL(file);
+    }
+
+    function convertBlob(base64, callback) {
+        var buffer = new ArrayBuffer(base64.length);
+        var ubuffer = new Uint8Array(buffer);
+        for (var i = 0; i < base64.length; i++) {
+            ubuffer[i] = base64.charCodeAt(i)
+        }
+        var blob;
+        try {
+            blob = new Blob([buffer], {type: 'image/jpg'});
+        } catch (e) {
+            window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder;
+            if (e.name === 'TypeError' && window.BlobBuilder) {
+                var blobBuilder = new BlobBuilder();
+                blobBuilder.append(buffer);
+                blob = blobBuilder.getBlob('image/jpg');
+            }
+        }
+        callback(blob)
+    }
+    // 获取图片 base64 格式
+    function callback(fileResize, that) {
+        if (fileResize != '') {
+            // 图片上传
+            $.ajax({
+                url: "expp.php",
+                type: "POST",
+                data: {'pic': fileResize},
+                dataType: "json",
+                success: function (info) {
+                    // 图片赋值
+                    $("#" + pic_id).val(info.url);
+                }});
+        }
+    }
+
+
+</script>
