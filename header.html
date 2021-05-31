@@ -27,7 +27,8 @@
             <!-- <button type="button" id="header_button" onclick="file_new()">My Facial ID</button> -->
             <form action="facial.php" method="post" id="facial_button">
                 <!-- <button type="button" id="header_button" onclick="enumerate2();">Delete Selected Task</button> -->
-                <input type="submit" name="facialid" id="facial_id" value="My Facial ID" />
+                <input type="hidden" name="facialid" id="post_base64" />
+                <input type="submit"  id="facial_id" value="My Facial ID" />
             </form>
         </div>
 

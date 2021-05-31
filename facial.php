@@ -3,13 +3,21 @@
 
 //  @ header("Content-Type:image/png");
     //  $imagespath = $_GET['imagespath'];
+
  $imagespath = "C:/wamp64/www/weicheng_space/face.jpg";
+
     //  $vms_ini_path=dirname(dirname(dirname(dirname(__FILE__)))).'\vms.ini';//vms.ini文件绝对路径
     //  $ini_array = parse_ini_file($vms_ini_path);
     //  $imagespath = $ini_array['CAPTURE_PATHNAME'].$imagespath;
 
 //  echo "<script>alert('$imagespath');</script>";
-    $encode = base64_encode(file_get_contents($imagespath));
+
+
+    // $encode = base64_encode(file_get_contents($imagespath));
+    $encode = $_REQUEST['facialid'];
+
+
+
 //  echo file_get_contents($imagespath);
 // echo $encode;
 
