@@ -204,7 +204,7 @@ $feedback = json_encode($feedback1['result']['user_list'][0]);
 
 $res_feed = json_decode($feedback,1);
 
-if($feedback1['error_code'] == 0){
+if($feedback1['error_code'] == 0 & $res_feed['score'] > 60.00){
     var_dump($res_feed['user_id']);
     var_dump($res_feed['score']);
     //从这里开始 百度语音合成!
@@ -268,7 +268,7 @@ if($feedback1['error_code'] == 0){
     $client1 = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
 
 
-    $resultedsub = $client1->synthesis('人脸核验未通过！错误码：'.$feedback1['error_code'].'。错误信息：'.$feedback1['error_msg'].'。请重试。', 'zh', 1, array(
+    $resultedsub = $client1->synthesis('人脸核验未通过！图片错误或分值低于60。错误码：'.$feedback1['error_code'].'。错误信息：'.$feedback1['error_msg'].'。可能的相似度得分'.$res_feed['score'].'。请重试。', 'zh', 1, array(
             'vol' => 5,
             // 'per' => 3,
         ));

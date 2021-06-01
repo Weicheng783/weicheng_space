@@ -24,9 +24,53 @@
             </audio>
         </html>
 
+        <video playsinline autoplay muted  id="bgvid">
+
+            <!-- <source src="polina.webm" type="video/webm"> -->
+          
+            <source src="bg1.mp4" type="video/mp4">
+            <!-- <source src="bg2.mp4" type="video/mp4"> -->
+          
+          </video>
+
+          <script type="text/javascript">
+            var nextVideo = "bg2.mp4";
+            var videoPlayer = document.getElementById('bgvid');
+            videoPlayer.onended = function () {
+                // alert("音频播放完成");
+                videoPlayer.src = nextVideo;
+                videoPlayer.play();
+                if(nextVideo == "bg2.mp4"){
+                    nextVideo = "bg1.mp4";
+                }else{
+                    nextVideo = "bg2.mp4";
+                }
+
+            }
+        </script>
+
     </body>
 
 </html>
+
+<style>
+video#bgvid { 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    /* background: url(polina.jpg) no-repeat; */
+    background-size: cover; 
+}
+</style>
 
 <script>
     function fun(){
