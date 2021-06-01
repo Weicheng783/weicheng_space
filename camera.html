@@ -12,46 +12,65 @@
             // Trigger photo take
             document.getElementById('snap').addEventListener('click', function() {
                 // Grab elements, create settings, etc.
-                document.getElementById("video").width = 320;
-                document.getElementById("video").height = 240;
+                if(document.getElementById("video").width == 0){
+                    document.getElementById("video").width = 320;
+                    document.getElementById("video").height = 240;
+                    var canvas = document.getElementById('canvas');
+                    var context = canvas.getContext('2d');
+                    var video = document.getElementById('video');
+                    var mediaConfig =  { video: true };
+                    var errBack = function(e) {
+                        console.log('An error has occurred!', e)
+                    };
 
-                var canvas = document.getElementById('canvas');
-                var context = canvas.getContext('2d');
-                var video = document.getElementById('video');
-                var mediaConfig =  { video: true };
-                var errBack = function(e) {
-                    console.log('An error has occurred!', e)
-                };
+                    // Put video listeners into place
+                    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                        navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
+                            try {
+                                video.srcObject = stream;
+                            } catch (error) {
+                                video.src = window.URL.createObjectURL(stream);
+                            }
+                            video.play();
+                        });
+                    }
 
-                // Put video listeners into place
-                if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
-                        try {
-                            video.srcObject = stream;
-                        } catch (error) {
+                    /* Legacy code below! */
+                    else if(navigator.getUserMedia) { // Standard
+                        navigator.getUserMedia(mediaConfig, function(stream) {
+                            video.src = stream;
+                            video.play();
+                        }, errBack);
+                    } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+                        navigator.webkitGetUserMedia(mediaConfig, function(stream){
+                            video.src = window.webkitURL.createObjectURL(stream);
+                            video.play();
+                        }, errBack);
+                    } else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
+                        navigator.mozGetUserMedia(mediaConfig, function(stream){
                             video.src = window.URL.createObjectURL(stream);
-                        }
-                        video.play();
-                    });
+                            video.play();
+                        }, errBack);
+                    }
+
+
+                    // this.mediaStreamTrack.getTracks()[0].stop();
+                    // const stream = video.src;
+                    // const tracks = this.mediaStream.getTracks();
+
+                    // tracks.forEach(function(track) {
+                        // track.stop();
+                    // });
+                    // video.srcObject = null;
+                }else{
+                    document.getElementById("video").width = 0;
+                    document.getElementById("video").height = 0;
+                    this.mediaStreamTrack && this.mediaStream.stop();
+
                 }
 
-                /* Legacy code below! */
-                else if(navigator.getUserMedia) { // Standard
-                    navigator.getUserMedia(mediaConfig, function(stream) {
-                        video.src = stream;
-                        video.play();
-                    }, errBack);
-                } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-                    navigator.webkitGetUserMedia(mediaConfig, function(stream){
-                        video.src = window.webkitURL.createObjectURL(stream);
-                        video.play();
-                    }, errBack);
-                } else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
-                    navigator.mozGetUserMedia(mediaConfig, function(stream){
-                        video.src = window.URL.createObjectURL(stream);
-                        video.play();
-                    }, errBack);
-                }
+
+
 
             });
 

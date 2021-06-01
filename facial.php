@@ -1,6 +1,8 @@
 
 <?php
-
+    const APP_ID = '24274364';
+    const API_KEY = 'dFlggY9vGUbTPwvhhUGIsRhN';
+    const SECRET_KEY = 'ETeqtySRqHzCqXxk3pEccTQbt1EXVaMI';
 //  @ header("Content-Type:image/png");
     //  $imagespath = $_GET['imagespath'];
 
@@ -187,11 +189,117 @@ function detect_face($url = '', $param = '')
 }
 
 $token = $access_token;
-$url = 'https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token=' . $token;
+// $url = 'https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token=' . $token; //detect
+$url = 'https://aip.baidubce.com/rest/2.0/face/v3/search?access_token=' . $token; //search
 // $bodys = '{"image":"027d8308a2ec665acb1bdf63e513bcb9","image_type":"FACE_TOKEN","face_field":"faceshape,facetype"}';
-$bodys = '{"image":"'.$encode.'","image_type":"BASE64","face_field":"faceshape,facetype"}';
+// $bodys = '{"image":"'.$encode.'","image_type":"BASE64","face_field":"faceshape,facetype"}';
+$bodys = "{\"image\":\"'.$encode.'\",\"image_type\":\"BASE64\",\"group_id_list\":\"figure\",\"quality_control\":\"NORMAL\",\"liveness_control\":\"NORMAL\"}";
 $res = detect_face($url, $bodys);
 
 var_dump($res);
+
+$feedback1 = json_decode($res,1);
+var_dump($feedback1['result']['user_list'][0]);
+$feedback = json_encode($feedback1['result']['user_list'][0]);
+
+$res_feed = json_decode($feedback,1);
+
+if($feedback1['error_code'] == 0){
+    var_dump($res_feed['user_id']);
+    var_dump($res_feed['score']);
+    //从这里开始 百度语音合成!
+    //remove the music file.
+    if(file_exists("audio.mp3")){
+        unlink("audio.mp3");
+    }
+
+    include 'AipSpeech.php';
+
+    // 你的 APPID AK SK
+
+    // 这里结束
+    $client1 = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
+
+    
+        $resultedsub = $client1->synthesis('人脸核验成功！用户：'.$res_feed['user_id'].'。 相似度得分：'.$res_feed['score'], 'zh', 1, array(
+            'vol' => 5,
+            // 'per' => 3,
+        ));
+        
+        //科大讯飞语音合成
+        // include './vendor/autoload.php';
+
+        // $appId = '';// 需要填入app_id
+        // $apiKey = '';// 需要填入api_key
+        // $apiSecret = '';// 需要填入api_secret
+
+        // $client = new IFlytek\Xfyun\Speech\TtsClient($appId, $apiKey, $apiSecret);
+        // file_put_contents('./result.mp3', $client->request('欢迎使用科大讯飞语音能力，让我们一起用人工智能改变世界')->getBody());
+
+        // 识别正确返回语音二进制 错误则返回json 参照下面错误码
+        if(!is_array($resultedsub)){
+            file_put_contents('audio.mp3', $resultedsub);
+            // system("wmplayer.exe audio.mp3");
+            // global $audio_var = 1; // This indicates a successful fetch.
+            $myfile = fopen("audio_var.txt", "w") or die("Unable to open file!");
+            // $txt = "Bill Gates\n";
+            $txt = "1";
+            fwrite($myfile, $txt);
+            // $txt = "Steve Jobs\n";
+            // fwrite($myfile, $txt);
+            fclose($myfile);
+            
+        }else{
+            echo "<script>alert('语音调用失败了。请重试试。');</script>";
+        }
+        echo "<script>location.href='index.php'</script>";
+}else{
+  //从这里开始 百度语音合成!
+    //remove the music file.
+    if(file_exists("audio.mp3")){
+        unlink("audio.mp3");
+    }
+
+    include 'AipSpeech.php';
+
+    // 你的 APPID AK SK
+
+    // 这里结束
+    $client1 = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
+
+
+    $resultedsub = $client1->synthesis('人脸核验未通过！错误码：'.$feedback1['error_code'].'。错误信息：'.$feedback1['error_msg'].'。请重试。', 'zh', 1, array(
+            'vol' => 5,
+            // 'per' => 3,
+        ));
+        
+        //科大讯飞语音合成
+        // include './vendor/autoload.php';
+
+        // $appId = '';// 需要填入app_id
+        // $apiKey = '';// 需要填入api_key
+        // $apiSecret = '';// 需要填入api_secret
+
+        // $client = new IFlytek\Xfyun\Speech\TtsClient($appId, $apiKey, $apiSecret);
+        // file_put_contents('./result.mp3', $client->request('欢迎使用科大讯飞语音能力，让我们一起用人工智能改变世界')->getBody());
+
+        // 识别正确返回语音二进制 错误则返回json 参照下面错误码
+        if(!is_array($resultedsub)){
+            file_put_contents('audio.mp3', $resultedsub);
+            // system("wmplayer.exe audio.mp3");
+            // global $audio_var = 1; // This indicates a successful fetch.
+            $myfile = fopen("audio_var.txt", "w") or die("Unable to open file!");
+            // $txt = "Bill Gates\n";
+            $txt = "1";
+            fwrite($myfile, $txt);
+            // $txt = "Steve Jobs\n";
+            // fwrite($myfile, $txt);
+            fclose($myfile);
+            
+        }else{
+            echo "<script>alert('语音调用失败了。请重试试。');</script>";
+        }
+        echo "<script>location.href='index.php'</script>";  
+}
 
 ?>
