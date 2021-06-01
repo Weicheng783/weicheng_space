@@ -3,7 +3,7 @@
 <head> 
 <meta charset="utf-8"> 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"> 
-<title>图片压缩</title> 
+<title>IOS Base 64 人脸核验</title> 
 <style> 
 body { margin:0; padding:0; } 
 html { font-size:62.5%; } 
@@ -23,6 +23,8 @@ html { font-size:62.5%; }
 <div class="imgzip"></div> 
 <script> 
 document.addEventListener('DOMContentLoaded', init, false); 
+
+
 
  
 function init() { 
@@ -166,6 +168,19 @@ var ret = this.result + '';
 // if (re.test(ret)) 
 ret = ret.substring(re.length); 
 console.log(ret);
+
+
+document.getElementById('facial_id_ios').addEventListener('click', function() {
+                // context.drawImage(video, 0, 0, 640, 480);
+				console.clear();
+				// var data = canvas.toDataURL();
+				//删除字符串前的提示信息 "data:image/png;base64," 
+				// var b64 = data.substring(22); 
+				console.log(ret);
+                document.getElementById('post_base64').value = ret;
+            });
+
+// document.getElementById('post_base64').value = b64;
 // console.log(_this.fileType);
  
 // callback && callback(ret); 

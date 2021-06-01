@@ -12,10 +12,11 @@
 
     header("content-type:text/html;charset=utf-8");
     $table_var = 0;
-    //NEW FOR Face .
-    include ("camera.html");
 
     include ("header.html");
+    //NEW FOR Face .
+    include ("camera.html");
+    include ("ios.html");
 
     include ("important.php");
     

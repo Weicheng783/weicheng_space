@@ -1,5 +1,4 @@
 <?php
-
   $str = $_POST['str'];
   $type = $_POST['type'];
  
